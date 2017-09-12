@@ -1,0 +1,22 @@
+version: 0.0.{build}-beta
+
+image: Visual Studio 2017
+
+platform: Any CPU
+
+configuration: Release
+
+build_script:
+  - ps : dotnet build -c $env:configuration
+
+before_package:
+  - ps : dotnet pack -c $env:configuration --no-build --include-symbols /p:Version=$env:APPVEYOR_BUILD_VERSION
+
+artifacts:
+  - path: '**\*.nupkg'
+
+deploy:
+  - provider: Environment
+    name: NuGet.org
+    on:
+      branch: master
