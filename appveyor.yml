@@ -8,6 +8,7 @@ configuration: Release
 
 install:
   - ps : dotnet --version
+  - ps : dotnet restore
 
 build_script:
   - ps : dotnet build -c $env:configuration
