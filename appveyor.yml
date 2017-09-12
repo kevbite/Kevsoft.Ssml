@@ -12,6 +12,9 @@ build_script:
 before_package:
   - ps : dotnet pack -c $env:configuration --no-build --include-symbols /p:Version=$env:APPVEYOR_BUILD_VERSION
 
+test_script:
+  - ps: dotnet test
+
 artifacts:
   - path: '**\*.nupkg'
 
