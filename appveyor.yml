@@ -6,6 +6,9 @@ platform: Any CPU
 
 configuration: Release
 
+install:
+  - ps : dotnet --version
+
 build_script:
   - ps : dotnet build -c $env:configuration
 
