@@ -17,7 +17,7 @@ install:
 build_script:
   - ps : dotnet build -c $env:configuration
 
-before_package:
+after_build:
   - ps : dotnet pack -c $env:configuration --no-build --include-symbols
 
 test_script:
