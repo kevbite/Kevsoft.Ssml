@@ -23,7 +23,7 @@ namespace Kevsoft.Ssml
 
             if (_strength != BreakStrength.NotSet)
             {
-                var value = _breakStrengthAttributeMap[_strength];
+                var value = BreakStrengthAttributeMap[_strength];
 
                 await writer.WriteAttributeStringAsync(null, "strength", null, value)
                     .ConfigureAwait(false);
@@ -69,7 +69,7 @@ namespace Kevsoft.Ssml
             return this;
         }
 
-        private static IReadOnlyDictionary<BreakStrength, string> _breakStrengthAttributeMap =
+        private static readonly IReadOnlyDictionary<BreakStrength, string> BreakStrengthAttributeMap =
             new Dictionary<BreakStrength, string>()
             {
                 {BreakStrength.None, "none"},
