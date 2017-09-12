@@ -2,8 +2,6 @@ version: 0.0.{build}-beta
 
 image: Visual Studio 2017
 
-platform: Any CPU
-
 configuration: Release
 
 dotnet_csproj:
