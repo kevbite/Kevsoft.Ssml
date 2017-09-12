@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Kevsoft.Ssml
 {
@@ -7,5 +9,7 @@ namespace Kevsoft.Ssml
         ISay Say(string value);
 
         Task<string> ToStringAsync();
+
+        IBreak Break();
     }
 }

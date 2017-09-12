@@ -29,7 +29,7 @@ namespace Kevsoft.Ssml
             await writer.WriteStartElementAsync(null, "emphasis", null)
                 .ConfigureAwait(false);
 
-            if (_emphasiseLevel != EmphasiseLevel.None)
+            if (_emphasiseLevel != EmphasiseLevel.NotSet)
             {
                 var attrValue = EmphasiseAttributeValueMap[_emphasiseLevel];
                 await writer.WriteAttributeStringAsync(null, "level", null, attrValue)

@@ -2,7 +2,7 @@
 {
     public enum EmphasiseLevel
     {
-        NotSet,
+        NotSet = 0,
         Strong,
         Moderate,
         None,

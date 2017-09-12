@@ -7,7 +7,7 @@ namespace Kevsoft.Ssml
 {
     public class Ssml : ISsml
     {
-        private readonly List<Say> _says = new List<Say>();
+        private readonly List<ISsmlWriter> _says = new List<ISsmlWriter>();
 
         public ISay Say(string value)
         {
@@ -30,7 +30,7 @@ namespace Kevsoft.Ssml
             {
                 var say = _says[index];
 
-                await say.Write(writer)
+                await say.WriteAsync(writer)
                     .ConfigureAwait(false);
 
                 if (index != _says.Count -1)
@@ -62,7 +62,18 @@ namespace Kevsoft.Ssml
                 return stringBuilder.ToString();
             }
         }
+
+        public IBreak Break()
+        {
+            var @break = new BreakWriter(this);
+
+            _says.Add(@break);
+
+            return @break;
+        }
     }
+
+    /*
     public enum InterpretAs
     {
         None = 0,
