@@ -3,5 +3,25 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
   </PropertyGroup>
+  
+  <PropertyGroup>
+    <Title>Speech Synthesis Markup Language (SSML) Generator</Title>
+    <AssemblyName>Kevsoft.Ssml</AssemblyName>
+    <PackageId>SSML</PackageId>
+    <Authors>Kevin Smith</Authors>
+    <Company>Kevsoft</Company>
+    <AssemblyTitle>Kevsoft.Ssml</AssemblyTitle>
+    <Description>
+      Fluent-ish SSML Generator
+    </Description>
+    <Copyright>Copyright © Kevsoft 2017</Copyright>
+  </PropertyGroup>
 
+  <PropertyGroup>
+    <PackageTags>SSML;XML Generator;Speech Synthesis Markup Language;Amazon;Alexa;</PackageTags>
+    <PackageProjectUrl>https://github.com/kevbite/Kevsoft.SSML</PackageProjectUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/kevbite/Kevsoft.SSML</RepositoryUrl>
+  </PropertyGroup>
 </Project>
