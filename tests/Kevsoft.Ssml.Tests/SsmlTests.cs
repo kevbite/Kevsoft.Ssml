@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
@@ -14,7 +14,7 @@ namespace Kevsoft.Ssml.Tests
                 .Say("World")
                 .ToStringAsync();
 
-            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak>Hello World</speak>");
+            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""en-US"">Hello World</speak>");
         }
 
         [Fact]
@@ -25,7 +25,18 @@ namespace Kevsoft.Ssml.Tests
                 .AsAlias("Bob")
                 .ToStringAsync();
 
-            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak>Hello <sub alias=""Bob"">World</sub></speak>");
+            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""en-US"">Hello <sub alias=""Bob"">World</sub></speak>");
+        }
+
+        [Fact]
+        public async Task ShouldReturnChineseLanguageSsml()
+        {
+            var xml = await new Ssml(lang: "zh-CN").Say("这样做吗")
+                                             .Break().WithStrength(BreakStrength.ExtraStrong).For(TimeSpan.FromMilliseconds(100.1))
+                                             .Say("是的，它确实！")
+                                             .ToStringAsync();
+
+            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""zh-CN"">这样做吗 <break strength=""x-strong"" time=""100ms"" /> 是的，它确实！</speak>");
         }
 
         [Fact]
@@ -36,7 +47,7 @@ namespace Kevsoft.Ssml.Tests
                 .Emphasised()
                 .ToStringAsync();
 
-            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak>Hello <emphasis>World</emphasis></speak>");
+            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""en-US"">Hello <emphasis>World</emphasis></speak>");
 
         }
 
@@ -52,7 +63,7 @@ namespace Kevsoft.Ssml.Tests
                 .Emphasised(level)
                 .ToStringAsync();
 
-            xml.Should().Be($@"<?xml version=""1.0"" encoding=""utf-16""?><speak>Hello <emphasis level=""{expected}"">World</emphasis></speak>");
+            xml.Should().Be($@"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""en-US"">Hello <emphasis level=""{expected}"">World</emphasis></speak>");
         }
 
         [Fact]
@@ -63,7 +74,7 @@ namespace Kevsoft.Ssml.Tests
                 .Say("then continue.")
                 .ToStringAsync();
 
-            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak>Take a deep breath <break /> then continue.</speak>");
+            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""en-US"">Take a deep breath <break /> then continue.</speak>");
         }
 
         [Theory]
@@ -80,7 +91,7 @@ namespace Kevsoft.Ssml.Tests
                 .Say("then continue.")
                 .ToStringAsync();
 
-            xml.Should().Be($@"<?xml version=""1.0"" encoding=""utf-16""?><speak>Take a deep breath <break strength=""{expected}"" /> then continue.</speak>");
+            xml.Should().Be($@"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""en-US"">Take a deep breath <break strength=""{expected}"" /> then continue.</speak>");
         }
 
         [Fact]
@@ -91,7 +102,7 @@ namespace Kevsoft.Ssml.Tests
                 .Say("then continue.")
                 .ToStringAsync();
 
-            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak>Take a deep breath <break time=""1500ms"" /> then continue.</speak>");
+            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""en-US"">Take a deep breath <break time=""1500ms"" /> then continue.</speak>");
         }
 
         [Fact]
@@ -102,7 +113,7 @@ namespace Kevsoft.Ssml.Tests
                 .Say("then continue.")
                 .ToStringAsync();
 
-            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak>Take a deep breath <break strength=""x-strong"" time=""100ms"" /> then continue.</speak>");
+            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""en-US"">Take a deep breath <break strength=""x-strong"" time=""100ms"" /> then continue.</speak>");
         }
     }
 }
