@@ -26,7 +26,82 @@ $ dotnet add package SSML
 
 ## Usage
 
-TODO: Copy all tests in to readme, yolo!
+### Plain text
+
+```csharp
+
+var xml = await new Ssml().Say("Hello")
+                .Say("World")
+                .ToStringAsync();
+```
+```xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<speak>Hello World</speak>
+
+```
+
+### Text with Alias
+
+```csharp
+
+ var xml = await new Ssml().Say("Hello")
+                .Say("World")
+                .AsAlias("Bob")
+                .ToStringAsync();
+```
+```xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<speak>
+   Hello
+   <sub alias="Bob">World</sub>
+</speak>
+
+```
+
+### Emphasise word or phrase
+
+```csharp
+
+var xml = await new Ssml().Say("Hello")
+                .Say("World")
+                .Emphasised()
+                .ToStringAsync();
+```
+```xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<speak>
+   Hello
+   <emphasis>World</emphasis>
+</speak>
+
+```
+
+### Break
+
+```csharp
+
+var xml = await new Ssml().Say("Take a deep breath")
+                .Break()
+                .Say("then continue.")
+                .ToStringAsync();
+```
+```xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<speak>
+   Take a deep breath
+   <break />
+   then continue.
+</speak>
+
+```
+
+### More usages
+
+For full set of usages checkout the unit tests within the `Kevsoft.Ssml.Tests` project.
 
 ## Contributing
 
