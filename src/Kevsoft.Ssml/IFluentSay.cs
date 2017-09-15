@@ -3,7 +3,7 @@ using System.Xml;
 
 namespace Kevsoft.Ssml
 {
-    public interface ISay : ISsml
+    public interface IFluentSay : ISsml
     {
         ISsml AsAlias(string alias);
 

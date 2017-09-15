@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
@@ -103,6 +104,56 @@ namespace Kevsoft.Ssml.Tests
                 .ToStringAsync();
 
             xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak>Take a deep breath <break strength=""x-strong"" time=""100ms"" /> then continue.</speak>");
+        }
+
+        [Fact]
+        public async Task ShouldReturnSayAsWhenSayingADate()
+        {
+            var date = new DateTime(2017, 09, 13);
+            var xml = await new Ssml()
+                .Say("This code was written on")
+                .Say(date)
+                .ToStringAsync();
+
+            xml.Should().Be($@"<?xml version=""1.0"" encoding=""utf-16""?><speak>This code was written on <say-as interpret-as=""date"">{date:dd/MM/yyy}</say-as></speak>");
+        }
+
+        [Theory]
+        [InlineData(2017, 09, 15, DateFormat.MonthDayYear, "09-15-2017")]
+        [InlineData(2017, 09, 15, DateFormat.DayMonthYear, "15-09-2017")]
+        [InlineData(2017, 09, 15, DateFormat.YearMonthDay, "2017-09-15")]
+        [InlineData(2017, 09, 15, DateFormat.MonthDay, "09-15")]
+        [InlineData(2017, 09, 15, DateFormat.DayMonth, "15-09")]
+        [InlineData(2017, 09, 15, DateFormat.YearMonth, "2017-09")]
+        [InlineData(2017, 09, 15, DateFormat.MonthYear, "09-2017")]
+        [InlineData(2017, 09, 15, DateFormat.Day, "15")]
+        [InlineData(2017, 09, 15, DateFormat.Month, "09")]
+        [InlineData(2017, 09, 15, DateFormat.Year, "2017")]
+        public async Task ShouldReturnSayAsWhenSayingADateWithFormat(int year, int month, int day, DateFormat dateFormat, string expectedDate)
+        {
+            var formatMaps = new Dictionary<DateFormat, string>
+            {
+                {DateFormat.MonthDayYear, "mdy"},
+                {DateFormat.DayMonthYear, "dmy"},
+                {DateFormat.YearMonthDay, "ymd"},
+                {DateFormat.MonthDay, "md"},
+                {DateFormat.DayMonth, "dm"},
+                {DateFormat.YearMonth, "ym"},
+                {DateFormat.MonthYear, "my"},
+                {DateFormat.Day, "d"},
+                {DateFormat.Month, "m"},
+                {DateFormat.Year, "y"}
+            };
+            
+            var date = new DateTime(year, month, day);
+            var format = formatMaps[dateFormat];
+
+            var xml = await new Ssml()
+                .Say("This code was written on")
+                .Say(date).As(dateFormat)
+                .ToStringAsync();
+
+            xml.Should().Be($@"<?xml version=""1.0"" encoding=""utf-16""?><speak>This code was written on <say-as interpret-as=""date"" format=""{format}"">{expectedDate}</say-as></speak>");
         }
     }
 }

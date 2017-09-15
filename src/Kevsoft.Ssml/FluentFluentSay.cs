@@ -3,15 +3,14 @@ using System.Xml;
 
 namespace Kevsoft.Ssml
 {
-    public class Say : ISay, ISsmlWriter
+    public class FluentFluentSay : FluentSsml, IFluentSay, ISsmlWriter
     {
         private ISsmlWriter _ssmlWriter;
-        private readonly ISsml _ssml;
 
-        public Say(string value, ISsml ssml)
+        public FluentFluentSay(string value, ISsml ssml)
+            : base(ssml)
         {
-            _ssmlWriter = new PlainTextWriter(value);;
-            _ssml = ssml;
+            _ssmlWriter = new PlainTextWriter(value);
         }
 
         public async Task WriteAsync(XmlWriter xml)
@@ -37,21 +36,6 @@ namespace Kevsoft.Ssml
             _ssmlWriter = new EmphasiseWriter(_ssmlWriter, level);
 
             return this;
-        }
-
-        ISay ISsml.Say(string value)
-        {
-            return _ssml.Say(value);
-        }
-
-        Task<string> ISsml.ToStringAsync()
-        {
-            return _ssml.ToStringAsync();
-        }
-            
-        IBreak ISsml.Break()
-        {
-            return _ssml.Break();
         }
     }
 }

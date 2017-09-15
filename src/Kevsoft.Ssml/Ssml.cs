@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -9,9 +10,18 @@ namespace Kevsoft.Ssml
     {
         private readonly List<ISsmlWriter> _says = new List<ISsmlWriter>();
 
-        public ISay Say(string value)
+        public IFluentSay Say(string value)
         {
-            var say = new Say(value, this);
+            var say = new FluentFluentSay(value, this);
+
+            _says.Add(say);
+
+            return say;
+        }
+
+        public IFluentSayDate Say(DateTime value)
+        {
+            var say = new FluentFluentSayDate(this, value);
 
             _says.Add(say);
 
@@ -85,18 +95,5 @@ namespace Kevsoft.Ssml
         Ordinal
     }
 
-    public enum InterpretAsDateFormat
-    {
-        None = 0,
-        MonthDaYearYear,
-        DaYearMonthYear,
-        YearMonthDaYear,
-        MonthDaYear,
-        DaYearMonth,
-        YearMonth,
-        MonthYear,
-        DaYear,
-        Month,
-        Year,
-    }*/
+    */
 }

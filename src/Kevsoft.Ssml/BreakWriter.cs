@@ -5,15 +5,14 @@ using System.Xml;
 
 namespace Kevsoft.Ssml
 {
-    public class BreakWriter : IBreak, ISsmlWriter
+    public class BreakWriter : FluentSsml, IBreak, ISsmlWriter
     {
-        private readonly ISsml _ssml;
         private TimeSpan? _duration;
         private BreakStrength _strength;
 
         public BreakWriter(ISsml ssml)
+            : base(ssml)
         {
-            _ssml = ssml;
         }
 
         public async Task WriteAsync(XmlWriter writer)
@@ -38,21 +37,6 @@ namespace Kevsoft.Ssml
 
             await writer.WriteEndElementAsync()
                 .ConfigureAwait(false);
-        }
-
-        ISay ISsml.Say(string value)
-        {
-            return _ssml.Say(value);
-        }
-
-        Task<string> ISsml.ToStringAsync()
-        {
-            return _ssml.ToStringAsync();
-        }
-
-        IBreak ISsml.Break()
-        {
-            return _ssml.Break();
         }
 
         public IBreak For(TimeSpan duration)

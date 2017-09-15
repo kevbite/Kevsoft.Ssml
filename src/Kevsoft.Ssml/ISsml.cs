@@ -1,12 +1,13 @@
-﻿using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace Kevsoft.Ssml
 {
     public interface ISsml
     {
-        ISay Say(string value);
+        IFluentSay Say(string value);
+
+        IFluentSayDate Say(DateTime value);
 
         Task<string> ToStringAsync();
 
