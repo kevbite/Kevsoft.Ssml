@@ -134,17 +134,17 @@ namespace Kevsoft.Ssml.Tests
                 .Be(
                     $@"<?xml version=""1.0"" encoding=""utf-16""?><speak>This code was written on <say-as interpret-as=""date"">{
                             date
-                        :dd/MM/yyy}</say-as></speak>");
+                        :yyyyMMdd}</say-as></speak>");
         }
 
         [Theory]
-        [InlineData(2017, 09, 15, DateFormat.MonthDayYear, "09-15-2017")]
-        [InlineData(2017, 09, 15, DateFormat.DayMonthYear, "15-09-2017")]
-        [InlineData(2017, 09, 15, DateFormat.YearMonthDay, "2017-09-15")]
-        [InlineData(2017, 09, 15, DateFormat.MonthDay, "09-15")]
-        [InlineData(2017, 09, 15, DateFormat.DayMonth, "15-09")]
-        [InlineData(2017, 09, 15, DateFormat.YearMonth, "2017-09")]
-        [InlineData(2017, 09, 15, DateFormat.MonthYear, "09-2017")]
+        [InlineData(2017, 09, 15, DateFormat.MonthDayYear, "09152017")]
+        [InlineData(2017, 09, 15, DateFormat.DayMonthYear, "15092017")]
+        [InlineData(2017, 09, 15, DateFormat.YearMonthDay, "20170915")]
+        [InlineData(2017, 09, 15, DateFormat.MonthDay, "0915")]
+        [InlineData(2017, 09, 15, DateFormat.DayMonth, "1509")]
+        [InlineData(2017, 09, 15, DateFormat.YearMonth, "201709")]
+        [InlineData(2017, 09, 15, DateFormat.MonthYear, "092017")]
         [InlineData(2017, 09, 15, DateFormat.Day, "15")]
         [InlineData(2017, 09, 15, DateFormat.Month, "09")]
         [InlineData(2017, 09, 15, DateFormat.Year, "2017")]

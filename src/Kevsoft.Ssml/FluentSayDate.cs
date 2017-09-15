@@ -44,14 +44,14 @@ namespace Kevsoft.Ssml
         private static readonly IReadOnlyDictionary<DateFormat, string> DateFormatToDateTimeFormatString =
             new Dictionary<DateFormat, string>()
             {
-                {DateFormat.NotSet, "d"},
-                {DateFormat.MonthDayYear, "MM-dd-yyyy"},
-                {DateFormat.DayMonthYear, "dd-MM-yyyy"},
-                {DateFormat.YearMonthDay, "yyyy-MM-dd"},
-                {DateFormat.MonthDay, "MM-dd"},
-                {DateFormat.DayMonth, "dd-MM"},
-                {DateFormat.YearMonth, "yyyy-MM"},
-                {DateFormat.MonthYear, "MM-yyyy"},
+                {DateFormat.NotSet, "yyyyMMdd"},
+                {DateFormat.MonthDayYear, "MMddyyyy"},
+                {DateFormat.DayMonthYear, "ddMMyyyy"},
+                {DateFormat.YearMonthDay, "yyyyMMdd"},
+                {DateFormat.MonthDay, "MMdd"},
+                {DateFormat.DayMonth, "ddMM"},
+                {DateFormat.YearMonth, "yyyyMM"},
+                {DateFormat.MonthYear, "MMyyyy"},
                 {DateFormat.Day, "dd"},
                 {DateFormat.Month, "MM"},
                 {DateFormat.Year, "yyyy"}
