@@ -9,6 +9,8 @@ namespace Kevsoft.Ssml
 
         IFluentSayDate Say(DateTime value);
 
+        IFluentSayTime Say(TimeSpan value);
+
         Task<string> ToStringAsync();
 
         IBreak Break();

@@ -28,6 +28,25 @@ namespace Kevsoft.Ssml
             return say;
         }
 
+        public IFluentSayTime Say(TimeSpan value)
+        {
+            if (value.Ticks < 0)
+            {
+                throw new ArgumentException("Time must be positive", nameof(value));
+            }
+            
+            if (value.Ticks >= TimeSpan.TicksPerDay)
+            {
+                throw new ArgumentException("Time must be positive", nameof(value));
+            }
+
+            var fluentSayTime = new FluentSayTime(this, value);
+
+            _says.Add(fluentSayTime);
+
+            return fluentSayTime;
+        }
+
         public async Task Write(XmlWriter writer)
         {
             await writer.WriteStartDocumentAsync()

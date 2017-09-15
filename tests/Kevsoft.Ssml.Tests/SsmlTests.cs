@@ -26,7 +26,8 @@ namespace Kevsoft.Ssml.Tests
                 .AsAlias("Bob")
                 .ToStringAsync();
 
-            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak>Hello <sub alias=""Bob"">World</sub></speak>");
+            xml.Should()
+                .Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak>Hello <sub alias=""Bob"">World</sub></speak>");
         }
 
         [Fact]
@@ -37,7 +38,8 @@ namespace Kevsoft.Ssml.Tests
                 .Emphasised()
                 .ToStringAsync();
 
-            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak>Hello <emphasis>World</emphasis></speak>");
+            xml.Should()
+                .Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak>Hello <emphasis>World</emphasis></speak>");
 
         }
 
@@ -53,7 +55,10 @@ namespace Kevsoft.Ssml.Tests
                 .Emphasised(level)
                 .ToStringAsync();
 
-            xml.Should().Be($@"<?xml version=""1.0"" encoding=""utf-16""?><speak>Hello <emphasis level=""{expected}"">World</emphasis></speak>");
+            xml.Should()
+                .Be($@"<?xml version=""1.0"" encoding=""utf-16""?><speak>Hello <emphasis level=""{
+                        expected
+                    }"">World</emphasis></speak>");
         }
 
         [Fact]
@@ -64,7 +69,9 @@ namespace Kevsoft.Ssml.Tests
                 .Say("then continue.")
                 .ToStringAsync();
 
-            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak>Take a deep breath <break /> then continue.</speak>");
+            xml.Should()
+                .Be(
+                    @"<?xml version=""1.0"" encoding=""utf-16""?><speak>Take a deep breath <break /> then continue.</speak>");
         }
 
         [Theory]
@@ -81,7 +88,11 @@ namespace Kevsoft.Ssml.Tests
                 .Say("then continue.")
                 .ToStringAsync();
 
-            xml.Should().Be($@"<?xml version=""1.0"" encoding=""utf-16""?><speak>Take a deep breath <break strength=""{expected}"" /> then continue.</speak>");
+            xml.Should()
+                .Be(
+                    $@"<?xml version=""1.0"" encoding=""utf-16""?><speak>Take a deep breath <break strength=""{
+                            expected
+                        }"" /> then continue.</speak>");
         }
 
         [Fact]
@@ -92,7 +103,9 @@ namespace Kevsoft.Ssml.Tests
                 .Say("then continue.")
                 .ToStringAsync();
 
-            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak>Take a deep breath <break time=""1500ms"" /> then continue.</speak>");
+            xml.Should()
+                .Be(
+                    @"<?xml version=""1.0"" encoding=""utf-16""?><speak>Take a deep breath <break time=""1500ms"" /> then continue.</speak>");
         }
 
         [Fact]
@@ -103,7 +116,9 @@ namespace Kevsoft.Ssml.Tests
                 .Say("then continue.")
                 .ToStringAsync();
 
-            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak>Take a deep breath <break strength=""x-strong"" time=""100ms"" /> then continue.</speak>");
+            xml.Should()
+                .Be(
+                    @"<?xml version=""1.0"" encoding=""utf-16""?><speak>Take a deep breath <break strength=""x-strong"" time=""100ms"" /> then continue.</speak>");
         }
 
         [Fact]
@@ -115,7 +130,11 @@ namespace Kevsoft.Ssml.Tests
                 .Say(date)
                 .ToStringAsync();
 
-            xml.Should().Be($@"<?xml version=""1.0"" encoding=""utf-16""?><speak>This code was written on <say-as interpret-as=""date"">{date:dd/MM/yyy}</say-as></speak>");
+            xml.Should()
+                .Be(
+                    $@"<?xml version=""1.0"" encoding=""utf-16""?><speak>This code was written on <say-as interpret-as=""date"">{
+                            date
+                        :dd/MM/yyy}</say-as></speak>");
         }
 
         [Theory]
@@ -129,7 +148,8 @@ namespace Kevsoft.Ssml.Tests
         [InlineData(2017, 09, 15, DateFormat.Day, "15")]
         [InlineData(2017, 09, 15, DateFormat.Month, "09")]
         [InlineData(2017, 09, 15, DateFormat.Year, "2017")]
-        public async Task ShouldReturnSayAsWhenSayingADateWithFormat(int year, int month, int day, DateFormat dateFormat, string expectedDate)
+        public async Task ShouldReturnSayAsWhenSayingADateWithFormat(int year, int month, int day,
+            DateFormat dateFormat, string expectedDate)
         {
             var formatMaps = new Dictionary<DateFormat, string>
             {
@@ -144,7 +164,7 @@ namespace Kevsoft.Ssml.Tests
                 {DateFormat.Month, "m"},
                 {DateFormat.Year, "y"}
             };
-            
+
             var date = new DateTime(year, month, day);
             var format = formatMaps[dateFormat];
 
@@ -153,7 +173,58 @@ namespace Kevsoft.Ssml.Tests
                 .Say(date).As(dateFormat)
                 .ToStringAsync();
 
-            xml.Should().Be($@"<?xml version=""1.0"" encoding=""utf-16""?><speak>This code was written on <say-as interpret-as=""date"" format=""{format}"">{expectedDate}</say-as></speak>");
+            xml.Should()
+                .Be(
+                    $@"<?xml version=""1.0"" encoding=""utf-16""?><speak>This code was written on <say-as interpret-as=""date"" format=""{
+                            format
+                        }"">{expectedDate}</say-as></speak>");
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionIfTimeSpanIsNegative()
+        {
+            var time = new TimeSpan(-1);
+
+            Assert.Throws<ArgumentException>("value", () => new Ssml()
+                .Say(time));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionIfTimeSpanIsOver()
+        {
+            var time = new TimeSpan(24, 0, 0);
+
+            Assert.Throws<ArgumentException>("value", () => new Ssml()
+                .Say(time));
+        }
+
+        [Fact]
+        public async Task ShouldReturnSayAsWhenSayingATimeIn24Hours()
+        {
+            var time = new TimeSpan(20, 05, 33);
+
+            var xml = await new Ssml().Say("Bedtime is")
+                .Say(time).In(TimeFormat.TwentyFourHour)
+                .ToStringAsync();
+
+            xml.Should()
+                .Be(
+                    @"<?xml version=""1.0"" encoding=""utf-16""?><speak>Bedtime is <say-as interpret-as=""time"" format=""hms24"">20:05:33</say-as></speak>");
+        }
+
+
+        [Fact]
+        public async Task ShouldReturnSayAsWhenSayingATimeIn12Hours()
+        {
+            var time = new TimeSpan(20, 05, 33);
+
+            var xml = await new Ssml().Say("Bedtime is")
+                .Say(time).In(TimeFormat.TwelveHour)
+                .ToStringAsync();
+
+            xml.Should()
+                .Be(
+                    @"<?xml version=""1.0"" encoding=""utf-16""?><speak>Bedtime is <say-as interpret-as=""time"" format=""hms12"">08:05:33PM</say-as></speak>");
         }
     }
 }

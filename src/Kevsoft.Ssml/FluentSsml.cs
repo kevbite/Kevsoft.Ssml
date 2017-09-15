@@ -5,31 +5,36 @@ namespace Kevsoft.Ssml
 {
     public abstract class FluentSsml : ISsml
     {
-        private readonly ISsml _ssmlImplementation;
+        private readonly ISsml _inner;
 
-        protected FluentSsml(ISsml ssmlImplementation)
+        protected FluentSsml(ISsml inner)
         {
-            _ssmlImplementation = ssmlImplementation;
+            _inner = inner;
         }
 
         IFluentSay ISsml.Say(string value)
         {
-            return _ssmlImplementation.Say(value);
+            return _inner.Say(value);
         }
 
         IFluentSayDate ISsml.Say(DateTime value)
         {
-            return _ssmlImplementation.Say(value);
+            return _inner.Say(value);
+        }
+
+        IFluentSayTime ISsml.Say(TimeSpan value)
+        {
+            return _inner.Say(value);
         }
 
         Task<string> ISsml.ToStringAsync()
         {
-            return _ssmlImplementation.ToStringAsync();
+            return _inner.ToStringAsync();
         }
 
         IBreak ISsml.Break()
         {
-            return _ssmlImplementation.Break();
+            return _inner.Break();
         }
     }
 }
