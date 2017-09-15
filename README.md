@@ -139,6 +139,25 @@ var xml = await new Ssml().Say("Bedtime is")
 
 ```
 
+
+### Say-as Telephone
+
+```csharp
+var xml = await new Ssml()
+                .Say("If you require a new job, please phone")
+                .Say("+44 (0)114 273 0281").AsTelephone()
+                .ToStringAsync();
+```
+```xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<speak>
+   If you require a new job, please phone
+   <say-as interpret-as="telephone">+44 (0)114 273 0281</say-as>
+</speak>
+
+```
+
 ### More usages
 
 For full set of usages checkout the unit tests within the `Kevsoft.Ssml.Tests` project.

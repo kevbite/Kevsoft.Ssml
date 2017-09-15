@@ -226,5 +226,18 @@ namespace Kevsoft.Ssml.Tests
                 .Be(
                     @"<?xml version=""1.0"" encoding=""utf-16""?><speak>Bedtime is <say-as interpret-as=""time"" format=""hms12"">08:05:33PM</say-as></speak>");
         }
+
+        [Fact]
+        public async Task ShouldReturnSayAsWhenSayingTextAsTelephone()
+        {
+            var xml = await new Ssml()
+                .Say("If you require a new job, please phone")
+                .Say("+44 (0)114 273 0281").AsTelephone()
+                .ToStringAsync();
+
+            xml.Should()
+                .Be(
+                    @"<?xml version=""1.0"" encoding=""utf-16""?><speak>If you require a new job, please phone <say-as interpret-as=""telephone"">+44 (0)114 273 0281</say-as></speak>");
+        }
     }
 }

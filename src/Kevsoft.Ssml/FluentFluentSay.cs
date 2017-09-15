@@ -5,11 +5,13 @@ namespace Kevsoft.Ssml
 {
     public class FluentFluentSay : FluentSsml, IFluentSay, ISsmlWriter
     {
+        private readonly string _value;
         private ISsmlWriter _ssmlWriter;
 
         public FluentFluentSay(string value, ISsml ssml)
             : base(ssml)
         {
+            _value = value;
             _ssmlWriter = new PlainTextWriter(value);
         }
 
@@ -34,6 +36,13 @@ namespace Kevsoft.Ssml
         public ISsml Emphasised(EmphasiseLevel level)
         {
             _ssmlWriter = new EmphasiseWriter(_ssmlWriter, level);
+
+            return this;
+        }
+
+        public ISsml AsTelephone()
+        {
+            _ssmlWriter = new SayAsWriter("telephone", _value);
 
             return this;
         }
