@@ -99,6 +99,46 @@ var xml = await new Ssml().Say("Take a deep breath")
 
 ```
 
+
+### Say-as Date
+
+```csharp
+var date = new DateTime(2017, 09, 15);
+
+var xml = await new Ssml()
+                .Say("This code was written on")
+                .Say(date).As(DateFormat.YearMonth)
+                .ToStringAsync();
+```
+```xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<speak>
+   This code was written on
+   <say-as interpret-as="date" format="ym">201709</say-as>
+</speak>
+
+```
+
+### Say-as Time
+
+```csharp
+var time = new TimeSpan(20, 05, 33);
+
+var xml = await new Ssml().Say("Bedtime is")
+                .Say(time).In(TimeFormat.TwentyFourHour)
+                .ToStringAsync();
+```
+```xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<speak>
+   Bedtime is
+   <say-as interpret-as="time" format="hms24">20:05:33</say-as>
+</speak>
+
+```
+
 ### More usages
 
 For full set of usages checkout the unit tests within the `Kevsoft.Ssml.Tests` project.
