@@ -239,5 +239,18 @@ namespace Kevsoft.Ssml.Tests
                 .Be(
                     @"<?xml version=""1.0"" encoding=""utf-16""?><speak>If you require a new job, please phone <say-as interpret-as=""telephone"">+44 (0)114 273 0281</say-as></speak>");
         }
+
+        [Fact]
+        public async Task ShouldReturnSayAsWhenSayingTextAsCharacters()
+        {
+            var xml = await new Ssml()
+                .Say("It's as easy as")
+                .Say("abc").AsCharacters()
+                .ToStringAsync();
+
+            xml.Should()
+                .Be(
+                    @"<?xml version=""1.0"" encoding=""utf-16""?><speak>It's as easy as <say-as interpret-as=""characters"" format=""characters"">abc</say-as></speak>");
+        }
     }
 }

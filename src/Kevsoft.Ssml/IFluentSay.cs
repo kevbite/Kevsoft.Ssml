@@ -13,5 +13,7 @@ namespace Kevsoft.Ssml
         ISsml Emphasised(EmphasiseLevel level);
 
         ISsml AsTelephone();
+
+        ISsml AsCharacters();
     }
 }

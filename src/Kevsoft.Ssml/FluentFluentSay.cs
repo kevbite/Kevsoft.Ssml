@@ -46,5 +46,12 @@ namespace Kevsoft.Ssml
 
             return this;
         }
+
+        public ISsml AsCharacters()
+        {
+            _ssmlWriter = new SayAsWriter("characters", "characters", _value);
+
+            return this;
+        }
     }
 }

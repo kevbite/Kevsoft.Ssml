@@ -139,7 +139,6 @@ var xml = await new Ssml().Say("Bedtime is")
 
 ```
 
-
 ### Say-as Telephone
 
 ```csharp
@@ -154,6 +153,24 @@ var xml = await new Ssml()
 <speak>
    If you require a new job, please phone
    <say-as interpret-as="telephone">+44 (0)114 273 0281</say-as>
+</speak>
+
+```
+
+### Say-as Characters
+
+```csharp
+var xml = await new Ssml()
+                .Say("It's as easy as")
+                .Say("abc").AsCharacters()
+                .ToStringAsync();
+```
+```xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<speak>
+   It's as easy as
+   <say-as interpret-as="characters" format="characters">abc</say-as>
 </speak>
 
 ```
