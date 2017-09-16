@@ -1,4 +1,4 @@
-version: 0.0.{build}
+version: 0.0.0-pre{build}
 
 image: Visual Studio 2017
 
@@ -31,3 +31,12 @@ deploy:
     name: NuGet.org
     on:
       branch: master
+      
+for:
+
+-
+  branches:
+    only:
+      - master
+
+  version: 1.0.0
