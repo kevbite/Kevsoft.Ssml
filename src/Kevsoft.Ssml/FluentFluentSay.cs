@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Xml;
 
 namespace Kevsoft.Ssml
@@ -47,11 +48,13 @@ namespace Kevsoft.Ssml
             return this;
         }
 
-        public ISsml AsCharacters()
+        public IFluentSayAsCharaters AsCharacters()
         {
-            _ssmlWriter = new SayAsWriter("characters", "characters", _value);
+            var fluentSayAsCharaters = new FluentSayAsCharaters(this, _value);
 
-            return this;
+            _ssmlWriter = fluentSayAsCharaters;
+
+            return fluentSayAsCharaters;
         }
     }
 }

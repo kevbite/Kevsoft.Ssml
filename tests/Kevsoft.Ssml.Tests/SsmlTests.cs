@@ -252,5 +252,18 @@ namespace Kevsoft.Ssml.Tests
                 .Be(
                     @"<?xml version=""1.0"" encoding=""utf-16""?><speak>It's as easy as <say-as interpret-as=""characters"" format=""characters"">abc</say-as></speak>");
         }
+
+        [Fact]
+        public async Task ShouldReturnSayAsWhenSayingTextAsCharactersWithGlyphInformation()
+        {
+            var xml = await new Ssml()
+                .Say("It's as easy as")
+                .Say("abc").AsCharacters().WithGlyphInformation()
+                .ToStringAsync();
+
+            xml.Should()
+                .Be(
+                    @"<?xml version=""1.0"" encoding=""utf-16""?><speak>It's as easy as <say-as interpret-as=""characters"" format=""glyph"">abc</say-as></speak>");
+        }
     }
 }

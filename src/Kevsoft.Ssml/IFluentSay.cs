@@ -14,6 +14,6 @@ namespace Kevsoft.Ssml
 
         ISsml AsTelephone();
 
-        ISsml AsCharacters();
+        IFluentSayAsCharaters AsCharacters();
     }
 }
