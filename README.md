@@ -31,8 +31,8 @@ $ dotnet add package SSML
 ```csharp
 
 var xml = await new Ssml().Say("Hello")
-                .Say("World")
-                .ToStringAsync();
+    .Say("World")
+    .ToStringAsync();
 ```
 ```xml
 
@@ -46,9 +46,9 @@ var xml = await new Ssml().Say("Hello")
 ```csharp
 
  var xml = await new Ssml().Say("Hello")
-                .Say("World")
-                .AsAlias("Bob")
-                .ToStringAsync();
+    .Say("World")
+    .AsAlias("Bob")
+    .ToStringAsync();
 ```
 ```xml
 
@@ -65,9 +65,9 @@ var xml = await new Ssml().Say("Hello")
 ```csharp
 
 var xml = await new Ssml().Say("Hello")
-                .Say("World")
-                .Emphasised()
-                .ToStringAsync();
+    .Say("World")
+    .Emphasised()
+    .ToStringAsync();
 ```
 ```xml
 
@@ -84,9 +84,9 @@ var xml = await new Ssml().Say("Hello")
 ```csharp
 
 var xml = await new Ssml().Say("Take a deep breath")
-                .Break()
-                .Say("then continue.")
-                .ToStringAsync();
+    .Break()
+    .Say("then continue.")
+    .ToStringAsync();
 ```
 ```xml
 
@@ -106,9 +106,9 @@ var xml = await new Ssml().Say("Take a deep breath")
 var date = new DateTime(2017, 09, 15);
 
 var xml = await new Ssml()
-                .Say("This code was written on")
-                .Say(date).As(DateFormat.YearMonth)
-                .ToStringAsync();
+    .Say("This code was written on")
+    .Say(date).As(DateFormat.YearMonth)
+    .ToStringAsync();
 ```
 ```xml
 
@@ -126,8 +126,8 @@ var xml = await new Ssml()
 var time = new TimeSpan(20, 05, 33);
 
 var xml = await new Ssml().Say("Bedtime is")
-                .Say(time).In(TimeFormat.TwentyFourHour)
-                .ToStringAsync();
+    .Say(time).In(TimeFormat.TwentyFourHour)
+    .ToStringAsync();
 ```
 ```xml
 
@@ -143,9 +143,9 @@ var xml = await new Ssml().Say("Bedtime is")
 
 ```csharp
 var xml = await new Ssml()
-                .Say("If you require a new job, please phone")
-                .Say("+44 (0)114 273 0281").AsTelephone()
-                .ToStringAsync();
+    .Say("If you require a new job, please phone")
+    .Say("+44 (0)114 273 0281").AsTelephone()
+    .ToStringAsync();
 ```
 ```xml
 
@@ -157,13 +157,13 @@ var xml = await new Ssml()
 
 ```
 
-### Say-as Characters
+### Say-as characters
 
 ```csharp
 var xml = await new Ssml()
-                .Say("It's as easy as")
-                .Say("abc").AsCharacters()
-                .ToStringAsync();
+    .Say("It's as easy as")
+    .Say("abc").AsCharacters()
+    .ToStringAsync();
 ```
 ```xml
 
@@ -174,6 +174,61 @@ var xml = await new Ssml()
 </speak>
 
 ```
+
+### Say-as characters with glyph information
+
+```csharp
+var xml = await new Ssml()
+    .Say("It's as easy as")
+    .Say("abc").AsCharacters().WithGlyphInformation()
+    .ToStringAsync();
+```
+```xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<speak>
+   It's as easy as
+   <say-as interpret-as="characters" format="characters" format="glyph">abc</say-as>
+</speak>
+
+```
+
+### Say-as cardinal number
+
+```csharp
+var xml = await new Ssml()
+    .Say("We only have")
+    .Say(512).AsCardinalNumber()
+    .ToStringAsync();
+```
+```xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<speak>
+   We only have
+   <say-as interpret-as="cardinal">512</say-as>
+</speak>
+
+```
+
+### Say-as ordinal number
+
+```csharp
+var xml = await new Ssml()
+    .Say("We only have")
+    .Say(512).AsOrdinalNumber()
+    .ToStringAsync();
+```
+```xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<speak>
+   We only have
+   <say-as interpret-as="ordinal">512</say-as>
+</speak>
+
+```
+
 
 ### More usages
 
