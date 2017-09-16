@@ -1,30 +1,9 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Threading.Tasks;
 using System.Xml;
 
 namespace Kevsoft.Ssml
 {
-    public interface IFluentSay : ISsml
-    {
-        ISsml AsAlias(string alias);
-
-        ISsml Emphasised();
-
-        ISsml Emphasised(EmphasiseLevel level);
-
-        ISsml AsTelephone();
-
-        IFluentSayAsCharaters AsCharacters();
-    }
-
-    public interface IFluentSayNumber
-    {
-        ISsml AsCardinalNumber();
-
-        ISsml AsOrdinalNumber();
-    }
-
     public class FluentSayNumber : IFluentSayNumber, ISsmlWriter
     {
         private readonly Ssml _ssml;

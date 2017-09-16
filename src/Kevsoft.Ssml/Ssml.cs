@@ -47,6 +47,15 @@ namespace Kevsoft.Ssml
             return fluentSayTime;
         }
 
+        public IFluentSayNumber Say(int value)
+        {
+            var fluentSayNumber = new FluentSayNumber(this, value);
+
+            _says.Add(fluentSayNumber);
+
+            return fluentSayNumber;
+        }
+
         public async Task Write(XmlWriter writer)
         {
             await writer.WriteStartDocumentAsync()

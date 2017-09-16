@@ -11,8 +11,11 @@ namespace Kevsoft.Ssml
 
         IFluentSayTime Say(TimeSpan value);
 
+        IFluentSayNumber Say(int value);
+
         Task<string> ToStringAsync();
 
         IBreak Break();
+
     }
 }

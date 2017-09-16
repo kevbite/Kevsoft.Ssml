@@ -265,5 +265,31 @@ namespace Kevsoft.Ssml.Tests
                 .Be(
                     @"<?xml version=""1.0"" encoding=""utf-16""?><speak>It's as easy as <say-as interpret-as=""characters"" format=""glyph"">abc</say-as></speak>");
         }
+
+        [Fact]
+        public async Task ShouldReturnSayAsWhenSayingIntAsCardinalNumber()
+        {
+            var xml = await new Ssml()
+                .Say("We only have")
+                .Say(512).AsCardinalNumber()
+                .ToStringAsync();
+
+            xml.Should()
+                .Be(
+                    @"<?xml version=""1.0"" encoding=""utf-16""?><speak>We only have <say-as interpret-as=""cardinal"">512</say-as></speak>");
+        }
+
+        [Fact]
+        public async Task ShouldReturnSayAsWhenSayingIntAsOrdinalNumber()
+        {
+            var xml = await new Ssml()
+                .Say("We only have")
+                .Say(512).AsOrdinalNumber()
+                .ToStringAsync();
+
+            xml.Should()
+                .Be(
+                    @"<?xml version=""1.0"" encoding=""utf-16""?><speak>We only have <say-as interpret-as=""ordinal"">512</say-as></speak>");
+        }
     }
 }

@@ -27,6 +27,11 @@ namespace Kevsoft.Ssml
             return _inner.Say(value);
         }
 
+        IFluentSayNumber ISsml.Say(int value)
+        {
+            return _inner.Say(value);
+        }
+
         Task<string> ISsml.ToStringAsync()
         {
             return _inner.ToStringAsync();
