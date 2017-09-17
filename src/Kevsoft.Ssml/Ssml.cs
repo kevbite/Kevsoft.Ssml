@@ -9,6 +9,14 @@ namespace Kevsoft.Ssml
     public class Ssml : ISsml
     {
         private readonly List<ISsmlWriter> _says = new List<ISsmlWriter>();
+        private readonly string _lang;
+        private readonly string _version;
+
+        public Ssml(string lang = "en-US", string version = "1.0")
+        {
+            _lang = lang;
+            _version = version;
+        }
 
         public IFluentSay Say(string value)
         {
@@ -63,6 +71,12 @@ namespace Kevsoft.Ssml
 
             await writer.WriteStartElementAsync(null, "speak", null)
                 .ConfigureAwait(false);
+
+            await writer.WriteAttributeStringAsync(null, "version", null, _version)
+                .ConfigureAwait(false);
+
+            await writer.WriteAttributeStringAsync("xml", "lang", null, _lang)
+                        .ConfigureAwait(false);
 
             for (var index = 0; index < _says.Count; index++)
             {

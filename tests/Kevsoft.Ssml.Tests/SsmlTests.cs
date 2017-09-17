@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -15,7 +15,7 @@ namespace Kevsoft.Ssml.Tests
                 .Say("World")
                 .ToStringAsync();
 
-            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak>Hello World</speak>");
+            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""en-US"">Hello World</speak>");
         }
 
         [Fact]
@@ -26,8 +26,18 @@ namespace Kevsoft.Ssml.Tests
                 .AsAlias("Bob")
                 .ToStringAsync();
 
-            xml.Should()
-                .Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak>Hello <sub alias=""Bob"">World</sub></speak>");
+            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""en-US"">Hello <sub alias=""Bob"">World</sub></speak>");
+        }
+
+        [Fact]
+        public async Task ShouldReturnChineseLanguageSsml()
+        {
+            var xml = await new Ssml(lang: "zh-CN").Say("这样做吗")
+                                             .Break().WithStrength(BreakStrength.ExtraStrong).For(TimeSpan.FromMilliseconds(100.1))
+                                             .Say("是的，它确实！")
+                                             .ToStringAsync();
+
+            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""zh-CN"">这样做吗 <break strength=""x-strong"" time=""100ms"" /> 是的，它确实！</speak>");
         }
 
         [Fact]
@@ -38,8 +48,7 @@ namespace Kevsoft.Ssml.Tests
                 .Emphasised()
                 .ToStringAsync();
 
-            xml.Should()
-                .Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak>Hello <emphasis>World</emphasis></speak>");
+            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""en-US"">Hello <emphasis>World</emphasis></speak>");
 
         }
 
@@ -55,10 +64,7 @@ namespace Kevsoft.Ssml.Tests
                 .Emphasised(level)
                 .ToStringAsync();
 
-            xml.Should()
-                .Be($@"<?xml version=""1.0"" encoding=""utf-16""?><speak>Hello <emphasis level=""{
-                        expected
-                    }"">World</emphasis></speak>");
+            xml.Should().Be($@"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""en-US"">Hello <emphasis level=""{expected}"">World</emphasis></speak>");
         }
 
         [Fact]
@@ -69,9 +75,7 @@ namespace Kevsoft.Ssml.Tests
                 .Say("then continue.")
                 .ToStringAsync();
 
-            xml.Should()
-                .Be(
-                    @"<?xml version=""1.0"" encoding=""utf-16""?><speak>Take a deep breath <break /> then continue.</speak>");
+            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""en-US"">Take a deep breath <break /> then continue.</speak>");
         }
 
         [Theory]
@@ -88,11 +92,7 @@ namespace Kevsoft.Ssml.Tests
                 .Say("then continue.")
                 .ToStringAsync();
 
-            xml.Should()
-                .Be(
-                    $@"<?xml version=""1.0"" encoding=""utf-16""?><speak>Take a deep breath <break strength=""{
-                            expected
-                        }"" /> then continue.</speak>");
+            xml.Should().Be($@"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""en-US"">Take a deep breath <break strength=""{expected}"" /> then continue.</speak>");
         }
 
         [Fact]
@@ -103,9 +103,7 @@ namespace Kevsoft.Ssml.Tests
                 .Say("then continue.")
                 .ToStringAsync();
 
-            xml.Should()
-                .Be(
-                    @"<?xml version=""1.0"" encoding=""utf-16""?><speak>Take a deep breath <break time=""1500ms"" /> then continue.</speak>");
+            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""en-US"">Take a deep breath <break time=""1500ms"" /> then continue.</speak>");
         }
 
         [Fact]
@@ -116,10 +114,7 @@ namespace Kevsoft.Ssml.Tests
                 .Say("then continue.")
                 .ToStringAsync();
 
-            xml.Should()
-                .Be(
-                    @"<?xml version=""1.0"" encoding=""utf-16""?><speak>Take a deep breath <break strength=""x-strong"" time=""100ms"" /> then continue.</speak>");
-        }
+            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""en-US"">Take a deep breath <break strength=""x-strong"" time=""100ms"" /> then continue.</speak>");        }
 
         [Fact]
         public async Task ShouldReturnSayAsWhenSayingADate()
@@ -132,7 +127,7 @@ namespace Kevsoft.Ssml.Tests
 
             xml.Should()
                 .Be(
-                    $@"<?xml version=""1.0"" encoding=""utf-16""?><speak>This code was written on <say-as interpret-as=""date"">{
+                    $@"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""en-US"">This code was written on <say-as interpret-as=""date"">{
                             date
                         :yyyyMMdd}</say-as></speak>");
         }
@@ -175,7 +170,7 @@ namespace Kevsoft.Ssml.Tests
 
             xml.Should()
                 .Be(
-                    $@"<?xml version=""1.0"" encoding=""utf-16""?><speak>This code was written on <say-as interpret-as=""date"" format=""{
+                    $@"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""en-US"">This code was written on <say-as interpret-as=""date"" format=""{
                             format
                         }"">{expectedDate}</say-as></speak>");
         }
@@ -209,7 +204,7 @@ namespace Kevsoft.Ssml.Tests
 
             xml.Should()
                 .Be(
-                    @"<?xml version=""1.0"" encoding=""utf-16""?><speak>Bedtime is <say-as interpret-as=""time"" format=""hms24"">20:05:33</say-as></speak>");
+                    @"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""en-US"">Bedtime is <say-as interpret-as=""time"" format=""hms24"">20:05:33</say-as></speak>");
         }
 
 
@@ -224,7 +219,7 @@ namespace Kevsoft.Ssml.Tests
 
             xml.Should()
                 .Be(
-                    @"<?xml version=""1.0"" encoding=""utf-16""?><speak>Bedtime is <say-as interpret-as=""time"" format=""hms12"">08:05:33PM</say-as></speak>");
+                    @"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""en-US"">Bedtime is <say-as interpret-as=""time"" format=""hms12"">08:05:33PM</say-as></speak>");
         }
 
         [Fact]
@@ -237,7 +232,7 @@ namespace Kevsoft.Ssml.Tests
 
             xml.Should()
                 .Be(
-                    @"<?xml version=""1.0"" encoding=""utf-16""?><speak>If you require a new job, please phone <say-as interpret-as=""telephone"">+44 (0)114 273 0281</say-as></speak>");
+                    @"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""en-US"">If you require a new job, please phone <say-as interpret-as=""telephone"">+44 (0)114 273 0281</say-as></speak>");
         }
 
         [Fact]
@@ -250,7 +245,7 @@ namespace Kevsoft.Ssml.Tests
 
             xml.Should()
                 .Be(
-                    @"<?xml version=""1.0"" encoding=""utf-16""?><speak>It's as easy as <say-as interpret-as=""characters"" format=""characters"">abc</say-as></speak>");
+                    @"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""en-US"">It's as easy as <say-as interpret-as=""characters"" format=""characters"">abc</say-as></speak>");
         }
 
         [Fact]
@@ -263,7 +258,7 @@ namespace Kevsoft.Ssml.Tests
 
             xml.Should()
                 .Be(
-                    @"<?xml version=""1.0"" encoding=""utf-16""?><speak>It's as easy as <say-as interpret-as=""characters"" format=""glyph"">abc</say-as></speak>");
+                    @"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""en-US"">It's as easy as <say-as interpret-as=""characters"" format=""glyph"">abc</say-as></speak>");
         }
 
         [Fact]
@@ -276,7 +271,7 @@ namespace Kevsoft.Ssml.Tests
 
             xml.Should()
                 .Be(
-                    @"<?xml version=""1.0"" encoding=""utf-16""?><speak>We only have <say-as interpret-as=""cardinal"">512</say-as></speak>");
+                    @"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""en-US"">We only have <say-as interpret-as=""cardinal"">512</say-as></speak>");
         }
 
         [Fact]
@@ -289,7 +284,7 @@ namespace Kevsoft.Ssml.Tests
 
             xml.Should()
                 .Be(
-                    @"<?xml version=""1.0"" encoding=""utf-16""?><speak>We only have <say-as interpret-as=""ordinal"">512</say-as></speak>");
+                    @"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""en-US"">We only have <say-as interpret-as=""ordinal"">512</say-as></speak>");
         }
     }
 }
