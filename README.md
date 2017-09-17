@@ -229,6 +229,27 @@ var xml = await new Ssml()
 
 ```
 
+### Language support
+
+```csharp
+var xml = await new Ssml(lang: "zh-CN")
+    .Say("这样做吗")
+    .Break().WithStrength(BreakStrength.ExtraStrong).For(TimeSpan.FromMilliseconds(100.1))
+    .Say("是的，它确实！")
+    .ToStringAsync();;
+```
+```xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<speak version="1.0" xml:lang="zh-CN">
+   这样做吗
+   <break strength="x-strong" time="100ms" />
+   是的，它确实！
+</speak>
+
+```
+
+
 
 ### More usages
 
