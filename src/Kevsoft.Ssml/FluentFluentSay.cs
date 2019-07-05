@@ -29,6 +29,13 @@ namespace Kevsoft.Ssml
             return this;
         }
 
+        public ISsml AsVoice(string name)
+        {
+            _ssmlWriter = new VoiceWriter(_ssmlWriter, name);
+
+            return this;
+        }
+
         public ISsml Emphasised()
         {
             return Emphasised(EmphasiseLevel.NotSet);
