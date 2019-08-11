@@ -229,6 +229,23 @@ var xml = await new Ssml()
 
 ```
 
+### Say-as voice
+
+```csharp
+var xml = await new Ssml().Say("Hello")
+    .Say("World")
+    .AsVoice("en-US-Jessa24kRUS")
+    .ToStringAsync();
+```
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<speak>
+    Hello <voice name=""en-US-Jessa24kRUS"">World</voice>
+</speak>
+```
+
+https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/speech-synthesis-markup
+
 ### Language support
 
 ```csharp
