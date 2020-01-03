@@ -69,7 +69,7 @@ namespace Kevsoft.Ssml
             await writer.WriteStartDocumentAsync()
                 .ConfigureAwait(false);
 
-            await writer.WriteStartElementAsync(null, "speak", null)
+            await writer.WriteStartElementAsync(null, "speak", "http://www.w3.org/2001/10/synthesis")
                 .ConfigureAwait(false);
 
             await writer.WriteAttributeStringAsync(null, "version", null, _version)
