@@ -22,33 +22,33 @@ namespace Kevsoft.Ssml
                 .ConfigureAwait(false);
         }
 
-        public ISsml AsAlias(string alias)
+        public IFluentSay AsAlias(string alias)
         {
             _ssmlWriter = new SubWriter(_ssmlWriter, alias);
 
             return this;
         }
 
-        public ISsml AsVoice(string name)
+        public IFluentSay AsVoice(string name)
         {
             _ssmlWriter = new VoiceWriter(_ssmlWriter, name);
 
             return this;
         }
 
-        public ISsml Emphasised()
+        public IFluentSay Emphasised()
         {
             return Emphasised(EmphasiseLevel.NotSet);
         }
 
-        public ISsml Emphasised(EmphasiseLevel level)
+        public IFluentSay Emphasised(EmphasiseLevel level)
         {
             _ssmlWriter = new EmphasiseWriter(_ssmlWriter, level);
 
             return this;
         }
 
-        public ISsml AsTelephone()
+        public IFluentSay AsTelephone()
         {
             _ssmlWriter = new SayAsWriter("telephone", _value);
 
