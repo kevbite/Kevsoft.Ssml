@@ -41,6 +41,18 @@ namespace Kevsoft.Ssml.Tests
         }
 
         [Fact]
+        public async Task ShouldReturnEmphasisedSpeakWithTextForVoice()
+        {
+            var xml = await new Ssml().Say("Hello")
+                .Say("World")
+                .Emphasised()
+                .AsVoice("en-US-Jessa24kRUS")
+                .ToStringAsync();
+
+            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""en-US"" xmlns=""http://www.w3.org/2001/10/synthesis"">Hello <voice name=""en-US-Jessa24kRUS""><emphasis>World</emphasis></voice></speak>");
+        }
+
+        [Fact]
         public async Task ShouldReturnChineseLanguageSsml()
         {
             var xml = await new Ssml(lang: "zh-CN").Say("这样做吗")

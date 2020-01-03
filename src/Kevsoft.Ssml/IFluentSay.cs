@@ -4,14 +4,14 @@ namespace Kevsoft.Ssml
 {
     public interface IFluentSay : ISsml
     {
-        ISsml AsAlias(string alias);
-        ISsml AsVoice(string name);
+        IFluentSay AsAlias(string alias);
+        IFluentSay AsVoice(string name);
 
-        ISsml Emphasised();
+        IFluentSay Emphasised();
 
-        ISsml Emphasised(EmphasiseLevel level);
+        IFluentSay Emphasised(EmphasiseLevel level);
 
-        ISsml AsTelephone();
+        IFluentSay AsTelephone();
 
         IFluentSayAsCharaters AsCharacters();
     }
