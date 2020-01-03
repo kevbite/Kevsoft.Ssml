@@ -21,9 +21,19 @@
   <PropertyGroup>
     <PackageVersion>1.0.0</PackageVersion>
     <PackageTags>SSML;XML Generator;Speech Synthesis Markup Language;Amazon;Alexa;</PackageTags>
-    <PackageProjectUrl>https://github.com/kevbite/Kevsoft.SSML</PackageProjectUrl>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/kevbite/Kevsoft.SSML</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 </Project>
