@@ -5,6 +5,8 @@ namespace Kevsoft.Ssml
 {
     public interface ISsml
     {
+        ISsml ForAlexa();
+
         IFluentSay Say(string value);
 
         IFluentSayDate Say(DateTime value);
