@@ -12,6 +12,11 @@ namespace Kevsoft.Ssml
             _inner = inner;
         }
 
+        ISsml ISsml.ForAlexa()
+        {
+            return _inner.ForAlexa();
+        }
+
         IFluentSay ISsml.Say(string value)
         {
             return _inner.Say(value);
