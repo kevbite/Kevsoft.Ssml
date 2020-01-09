@@ -11,11 +11,13 @@ namespace Kevsoft.Ssml
         private readonly List<ISsmlWriter> _says = new List<ISsmlWriter>();
         private readonly string _lang;
         private readonly string _version;
+        private readonly bool _forAlexa;
 
-        public Ssml(string lang = "en-US", string version = "1.0")
+        public Ssml(string lang = "en-US", string version = "1.0", bool forAlexa = false)
         {
             _lang = lang;
             _version = version;
+            _forAlexa = forAlexa;
         }
 
         public IFluentSay Say(string value)
@@ -69,11 +71,14 @@ namespace Kevsoft.Ssml
             await writer.WriteStartDocumentAsync()
                 .ConfigureAwait(false);
 
-            await writer.WriteStartElementAsync(null, "speak", "http://www.w3.org/2001/10/synthesis")
+            await writer.WriteStartElementAsync(null, "speak", _forAlexa ? null : "http://www.w3.org/2001/10/synthesis")
                 .ConfigureAwait(false);
 
-            await writer.WriteAttributeStringAsync(null, "version", null, _version)
-                .ConfigureAwait(false);
+            if (!_forAlexa)
+            {
+                await writer.WriteAttributeStringAsync(null, "version", null, _version)
+                    .ConfigureAwait(false);
+            }
 
             await writer.WriteAttributeStringAsync("xml", "lang", null, _lang)
                         .ConfigureAwait(false);
