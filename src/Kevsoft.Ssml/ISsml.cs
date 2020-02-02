@@ -5,8 +5,6 @@ namespace Kevsoft.Ssml
 {
     public interface ISsml
     {
-        ISsml ForAlexa();
-
         IFluentSay Say(string value);
 
         IFluentSayDate Say(DateTime value);
@@ -19,5 +17,6 @@ namespace Kevsoft.Ssml
 
         IBreak Break();
 
+        ISsml WithConfiguration(SsmlConfiguration configuration);
     }
 }

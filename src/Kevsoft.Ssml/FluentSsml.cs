@@ -12,10 +12,6 @@ namespace Kevsoft.Ssml
             _inner = inner;
         }
 
-        ISsml ISsml.ForAlexa()
-        {
-            return _inner.ForAlexa();
-        }
 
         IFluentSay ISsml.Say(string value)
         {
@@ -45,6 +41,11 @@ namespace Kevsoft.Ssml
         IBreak ISsml.Break()
         {
             return _inner.Break();
+        }
+
+        ISsml ISsml.WithConfiguration(SsmlConfiguration configuration)
+        {
+            return _inner.WithConfiguration(configuration);
         }
     }
 }

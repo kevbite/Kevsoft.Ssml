@@ -309,5 +309,17 @@ namespace Kevsoft.Ssml.Tests
                 .Be(
                     @"<?xml version=""1.0"" encoding=""utf-16""?><speak version=""1.0"" xml:lang=""en-US"" xmlns=""http://www.w3.org/2001/10/synthesis"">We only have <say-as interpret-as=""ordinal"">512</say-as></speak>");
         }
+
+        [Fact]
+        public async Task ShouldNotIncludeVersion()
+        {
+            var xml = await new Ssml()
+                .WithConfiguration(new SsmlConfiguration(true))
+                .Say("Hello")
+                .Say("World")
+                .ToStringAsync();
+
+            xml.Should().Be(@"<?xml version=""1.0"" encoding=""utf-16""?><speak xml:lang=""en-US"" xmlns=""http://www.w3.org/2001/10/synthesis"">Hello World</speak>");
+        }
     }
 }
