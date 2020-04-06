@@ -25,6 +25,8 @@ test_script:
 
 artifacts:
   - path: '**\*.nupkg'
+  - path: '**\*.snupkg'
+
 
 deploy:
   - provider: Environment

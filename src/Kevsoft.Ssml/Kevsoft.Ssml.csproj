@@ -5,6 +5,11 @@
   </PropertyGroup>
   
   <PropertyGroup>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <Title>Speech Synthesis Markup Language (SSML) Generator</Title>
     <AssemblyName>Kevsoft.Ssml</AssemblyName>
     <Version>1.0.0</Version>
