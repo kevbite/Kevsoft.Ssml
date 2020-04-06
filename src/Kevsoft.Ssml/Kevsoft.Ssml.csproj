@@ -26,7 +26,6 @@
   <PropertyGroup>
     <PackageVersion>1.0.0</PackageVersion>
     <PackageTags>SSML;XML Generator;Speech Synthesis Markup Language;Amazon;Alexa;</PackageTags>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
