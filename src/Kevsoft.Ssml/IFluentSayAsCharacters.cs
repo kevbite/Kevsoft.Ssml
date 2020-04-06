@@ -1,6 +1,6 @@
 ﻿namespace Kevsoft.Ssml
 {
-    public interface IFluentSayAsCharaters : ISsml
+    public interface IFluentSayAsCharacters : ISsml
     {
         ISsml WithGlyphInformation();
     }

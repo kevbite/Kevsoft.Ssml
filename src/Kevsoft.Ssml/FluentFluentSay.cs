@@ -55,13 +55,13 @@ namespace Kevsoft.Ssml
             return this;
         }
 
-        public IFluentSayAsCharaters AsCharacters()
+        public IFluentSayAsCharacters AsCharacters()
         {
-            var fluentSayAsCharaters = new FluentSayAsCharaters(this, _value);
+            var fluentSayAsCharacters = new FluentSayAsCharacters(this, _value);
 
-            _ssmlWriter = fluentSayAsCharaters;
+            _ssmlWriter = fluentSayAsCharacters;
 
-            return fluentSayAsCharaters;
+            return fluentSayAsCharacters;
         }
     }
 }

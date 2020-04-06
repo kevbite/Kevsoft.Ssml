@@ -13,6 +13,6 @@ namespace Kevsoft.Ssml
 
         IFluentSay AsTelephone();
 
-        IFluentSayAsCharaters AsCharacters();
+        IFluentSayAsCharacters AsCharacters();
     }
 }

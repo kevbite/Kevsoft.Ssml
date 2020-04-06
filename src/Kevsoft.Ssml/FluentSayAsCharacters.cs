@@ -3,12 +3,12 @@ using System.Xml;
 
 namespace Kevsoft.Ssml
 {
-    public class FluentSayAsCharaters : FluentSsml, IFluentSayAsCharaters, ISsmlWriter
+    public class FluentSayAsCharacters : FluentSsml, IFluentSayAsCharacters, ISsmlWriter
     {
         private readonly string _value;
         private ISsmlWriter _innerWriter;
 
-        public FluentSayAsCharaters(ISsml ssml, string value)
+        public FluentSayAsCharacters(ISsml ssml, string value)
             : base(ssml)
         {
             _value = value;
