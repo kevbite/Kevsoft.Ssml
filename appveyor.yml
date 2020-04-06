@@ -42,4 +42,4 @@ for:
     only:
       - master
 
-  version: 1.4.{build}
+  version: 2.0.{build}
